@@ -7,29 +7,43 @@ public class UIController : MonoBehaviour
 {
     private GameObject bossHPUI;
     private GameObject boss;
+    private GameObject ball;
+    private GameObject gameOverText;
+    private GameObject ballNumberText;
     BossController bossController;
+    BallController ballController;
 
     // Start is called before the first frame update
     void Start()
     {
-        //シーンビューからオブジェクトの実態を検索する
-        this.bossHPUI = GameObject.Find("BossHp");
-        
-        //スライダーをマックス
-        this.bossHPUI.GetComponent<Slider>().value = 1;
+        //シーンビューからボスUI、残機数UI、ボール、ボスオブジェクトを検索
+        bossHPUI = GameObject.Find("BossHp");
+        gameOverText = GameObject.Find("GameOverText");
+        ballNumberText = GameObject.Find("BallNumberText");
+        ball = GameObject.Find("Ball");
+        boss = GameObject.Find("Boss");
+
+        //各スクリプトにアクセス
+        bossController = boss.GetComponent<BossController>();
+        ballController = ball.GetComponent<BallController>();
+        //ボスUIのスライダーをマックス
+        bossHPUI.GetComponent<Slider>().value = 1;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if(ballController.isGameOver == false)
+        {
+            ballNumberText.GetComponent<Text>().text = "× " + ballController.ballNumber + "";
+        }
+        else
+         gameOverText.GetComponent<Text>().text = "Game Over";
     }
 
     //ボスHPの増減を表示する関数
     public void Damage()
     {
-        boss = GameObject.Find("Boss");
-        bossController = boss.GetComponent<BossController>();
-        this.bossHPUI.GetComponent<Slider>().value = (float)bossController.firstBoss.hp / (float)bossController.firstBoss.maxhp;
+        bossHPUI.GetComponent<Slider>().value = (float)bossController.hp / (float)bossController.maxhp;
     }
 }

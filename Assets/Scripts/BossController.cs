@@ -4,31 +4,24 @@ using UnityEngine;
 
 public class BossController : MonoBehaviour
 {
-    public Boss firstBoss;
-    private int ballAttack = 15; //ボールの攻撃力仮設定、あとで別のスクリプトから引っ張れるようにする
+    private int ballAttack;
+    public GameObject shelterManager;
 
-    public class Boss
-    {
-        public int maxhp = 100;
-        public int hp = 100;
-        public GameObject uiController;
-        public void Defence(int damage)
-        {
-            this.hp -= damage;
-            //HPがマイナスにならないようにする
-            if(this.hp < 0)
-             this.hp = 0;
-            uiController = GameObject.Find("UIController");
-            uiController.GetComponent<UIController>().Damage();
-            Debug.Log("現在のHPは" + hp + "");
+    public int maxhp;
+    public int hp;
+    public GameObject uiController;
 
-        }
-    }
+
     // Start is called before the first frame update
     void Start()
     {
-        firstBoss = new Boss();
-
+        //シェルターマネージャーを取得
+        this.shelterManager = GameObject.Find("ShelterManager");
+        //ボールの攻撃力をシェルターから拾ってくる
+        this.ballAttack = this.shelterManager.GetComponent<ShelterManager>().GetShelter("プレイヤー").GetBallAttack();
+        //ボスのHPをシェルターから拾ってくる
+        this.maxhp = this.shelterManager.GetComponent<ShelterManager>().GetShelter("ボス1").GetHp();
+        this.hp = maxhp;
     }
 
     // Update is called once per frame
@@ -41,8 +34,22 @@ public class BossController : MonoBehaviour
     {
         if (other.gameObject.tag == "BallTag")
         {
-            firstBoss.Defence(ballAttack);
+            Defence(ballAttack);
         }
+
+    }
+
+    public void Defence(int damage)
+    {
+        this.hp -= damage;
+        //HPがマイナスにならないようにする
+        if (this.hp < 0)
+            this.hp = 0;
+        uiController = GameObject.Find("UIController");
+        uiController.GetComponent<UIController>().Damage();
+        Debug.Log("現在のmaxHPは" + maxhp + "");
+        Debug.Log("現在のHPは" + hp + "");
+        Debug.Log("プレイヤーの攻撃力は" + ballAttack + "");
 
     }
 
