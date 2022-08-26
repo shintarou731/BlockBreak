@@ -10,7 +10,7 @@ public class BossController : MonoBehaviour
     public int maxhp;
     public int hp;
     public GameObject uiController;
-
+    public bool isGameClear = false;
 
     // Start is called before the first frame update
     void Start()
@@ -41,12 +41,19 @@ public class BossController : MonoBehaviour
 
     public void Defence(int damage)
     {
-        this.hp -= damage;
+        hp -= damage;
         //HPがマイナスにならないようにする
-        if (this.hp < 0)
-            this.hp = 0;
+        if (hp < 0)
+            hp = 0;
+        //UIコントローラーのHP反映関数を実行
         uiController = GameObject.Find("UIController");
         uiController.GetComponent<UIController>().Damage();
+        //ボス倒したらクリア
+        if (hp == 0)
+        {
+            isGameClear = true;
+            Time.timeScale = 0;
+        }
         Debug.Log("現在のmaxHPは" + maxhp + "");
         Debug.Log("現在のHPは" + hp + "");
         Debug.Log("プレイヤーの攻撃力は" + ballAttack + "");

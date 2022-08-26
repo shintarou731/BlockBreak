@@ -9,6 +9,7 @@ public class UIController : MonoBehaviour
     private GameObject boss;
     private GameObject ball;
     private GameObject gameOverText;
+    private GameObject gameClearText;
     private GameObject ballNumberText;
     BossController bossController;
     BallController ballController;
@@ -19,6 +20,7 @@ public class UIController : MonoBehaviour
         //シーンビューからボスUI、残機数UI、ボール、ボスオブジェクトを検索
         bossHPUI = GameObject.Find("BossHp");
         gameOverText = GameObject.Find("GameOverText");
+        gameClearText = GameObject.Find("GameClearText");
         ballNumberText = GameObject.Find("BallNumberText");
         ball = GameObject.Find("Ball");
         boss = GameObject.Find("Boss");
@@ -33,12 +35,17 @@ public class UIController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ballController.isGameOver == false)
+        if(ballController.isGameOver == true)
         {
-            ballNumberText.GetComponent<Text>().text = "× " + ballController.ballNumber + "";
+            gameOverText.GetComponent<Text>().text = "GAME OVER";
         }
         else
-         gameOverText.GetComponent<Text>().text = "Game Over";
+            ballNumberText.GetComponent<Text>().text = "× " + ballController.ballNumber + ""; //残機表示
+
+        if (bossController.isGameClear == true)
+        {
+            gameClearText.GetComponent<Text>().text = "GAME CLEAR!!";
+        }
     }
 
     //ボスHPの増減を表示する関数

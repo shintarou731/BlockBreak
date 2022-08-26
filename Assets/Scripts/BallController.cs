@@ -13,8 +13,6 @@ public class BallController : MonoBehaviour
     private float acceleration = 1.2f;
     //RigitBody取得
     private Rigidbody myRigidbody;
-    //ゲーム始まってる？
-    public bool gameRunning = false;
     //げーむおーばー
     public bool isGameOver = false;
 
@@ -66,14 +64,16 @@ public class BallController : MonoBehaviour
             ballNumber -= 1;
             if(ballNumber < 0)
             {
-                isGameOver = true;
+                GameOver();
             }
-
         }
-        
-        
+    }
 
-
+    //ゲームオーバー関数
+    private void GameOver()
+    {
+        isGameOver = true;
+        Time.timeScale = 0;
         
     }
 
