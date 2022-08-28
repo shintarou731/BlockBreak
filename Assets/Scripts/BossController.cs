@@ -9,8 +9,11 @@ public class BossController : MonoBehaviour
 
     public int maxhp;
     public int hp;
-    public GameObject uiController;
+    public float attack;
+    private GameObject uiController;
     public bool isGameClear = false;
+    public GameObject bulletPrefab;
+    public float attackInterval;
 
     // Start is called before the first frame update
     void Start()
@@ -19,15 +22,13 @@ public class BossController : MonoBehaviour
         this.shelterManager = GameObject.Find("ShelterManager");
         //ボールの攻撃力をシェルターから拾ってくる
         this.ballAttack = this.shelterManager.GetComponent<ShelterManager>().GetShelter("プレイヤー").GetBallAttack();
-        //ボスのHPをシェルターから拾ってくる
+        //ボスのHPと攻撃力をシェルターから拾ってくる
         this.maxhp = this.shelterManager.GetComponent<ShelterManager>().GetShelter("ボス1").GetHp();
         this.hp = maxhp;
-    }
+        this.attack = this.shelterManager.GetComponent<ShelterManager>().GetShelter("ボス1").GetAttack();
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        //ボスが一定間隔で攻撃
+        InvokeRepeating("shot", 2f, attackInterval);
     }
 
     void OnCollisionEnter(Collision other)
@@ -36,7 +37,6 @@ public class BossController : MonoBehaviour
         {
             Defence(ballAttack);
         }
-
     }
 
     public void Defence(int damage)
@@ -54,10 +54,17 @@ public class BossController : MonoBehaviour
             isGameClear = true;
             Time.timeScale = 0;
         }
+        /*
         Debug.Log("現在のmaxHPは" + maxhp + "");
         Debug.Log("現在のHPは" + hp + "");
         Debug.Log("プレイヤーの攻撃力は" + ballAttack + "");
-
+        */
     }
+
+    private void shot()
+    {
+        Instantiate(bulletPrefab, transform.position, transform.rotation);
+    }
+
 
 }

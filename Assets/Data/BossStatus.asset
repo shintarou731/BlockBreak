@@ -16,7 +16,7 @@ MonoBehaviour:
   Name: "\u30DC\u30B91"
   information: "\u30B9\u30C6\u30FC\u30B81\u306E\u30DC\u30B9"
   hp: 100
-  attack: 1
+  attack: 0.7
   barLength: 0
   ballAttack: 0
   ballNumber: 0

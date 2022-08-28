@@ -18,7 +18,7 @@ public class Shelter : ScriptableObject
     private int hp;// ボスのHP
 
     [SerializeField]
-    private int attack;//ボスの攻撃力
+    private float attack;//ボスの攻撃力
 
     public float barLength;//プレイヤーのバーの長さ
 
@@ -46,7 +46,7 @@ public class Shelter : ScriptableObject
         return hp;
     }
 
-    public int GetAttack()
+    public float GetAttack()
     {
         return attack;
     }
