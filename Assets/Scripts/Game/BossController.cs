@@ -61,6 +61,7 @@ public class BossController : MonoBehaviour
         */
     }
 
+    //ê^â∫Ç…çUåÇ
     private void shot()
     {
         Instantiate(bulletPrefab, transform.position, transform.rotation);

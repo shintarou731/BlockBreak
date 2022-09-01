@@ -13,6 +13,7 @@ TagManager:
   - BulletTag
   - RightWallTag
   - LeftWallTag
+  - FadeTag
   layers:
   - Default
   - TransparentFX

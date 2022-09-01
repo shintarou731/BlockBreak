@@ -18,6 +18,7 @@ public class BarController : MonoBehaviour
     //•Ç‚É“–‚½‚Á‚Ä‚éH
     private bool leftWallCollision = false;
     private bool rightWallCollision = false;
+
     
 
     // Start is called before the first frame update

@@ -24,6 +24,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if(other.gameObject.tag != "BallTag")
         Destroy(this.gameObject);
     }
 
