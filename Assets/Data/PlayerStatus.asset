@@ -18,5 +18,5 @@ MonoBehaviour:
   hp: 0
   attack: 0
   barLength: 15
-  ballAttack: 100
+  ballAttack: 15
   ballNumber: 3
